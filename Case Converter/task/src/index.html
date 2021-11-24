@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Case converter</title>
+    <style>  * { margin: 0 0 0 0;
+
+    }
+        header { display: block;
+            background-color: #000;
+            text-align: center;
+            color: #f7f9fa;
+            position: relative;
+            top: 0;
+            ;
+
+        }
+            h1{
+                margin-right: auto;
+                margin-left: auto;
+            }
+
+        .txtar{ background-color: #f7f9fa;
+        height: 100vh;}
+        #txtin{width: 50%;
+        height: 200px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="title">
+            <h1>Case Converter</h1>
+        </div>
+    </header>
+
+    <div class="txtar">
+    <label>
+        <textarea id="txtin"></textarea>
+    </label>
+    <div class="buttons">
+        <button id="upper-case">Upper Case</button>
+        <button id="lower-case">Lower Case</button>
+        <button id="proper-case">Proper Case</button>
+        <button id="sentence-case">Sentence Case</button>
+        <button id="save-text-file">Save</button>
+        <a href="data:text/plain;charset=utf-8, texttest" download="tex.txt">download</a>
+    </div>
+    </div>
+
+<script>
+    function download(filename, text) {
+        let element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        console.log(element);
+        //document.body.appendChild(element);
+
+        element.click();
+
+        //document.body.removeChild(element);
+    }
+
+
+    document.getElementById("upper-case").addEventListener("click", function () {
+       let input = document.getElementById("txtin");
+       input.value = input.value.toUpperCase();
+
+    })
+    document.getElementById("lower-case").addEventListener("click", function f_lower() {
+        let input = document.getElementById("txtin");
+        console.log(input.value[0]);
+        input.value = input.value.toLowerCase();
+    })
+    document.getElementById("proper-case").addEventListener("click", function () {
+        let input = document.getElementById("txtin");
+        input.value = input.value.toLowerCase();
+        input.value = input.value.split(" ").map(s=>s[0].toUpperCase()+s.slice(1)).join(" ");
+
+
+    })
+
+    document.getElementById("sentence-case").addEventListener("click", function() {
+        let input1 = document.getElementById("txtin");
+        input1.value = input1.value.toLowerCase();
+        input1.value = input1.value.split(". ").map(s=>s[0].toUpperCase()+s.slice(1)).join(". ");
+        console.log(input1.value);
+    })
+    document.getElementById("save-text-file").addEventListener("click", function (){
+        let texttosave = document.getElementById("txtin").value;
+        let time = new Date();
+        console.log(texttosave);
+        download("text" + time.getHours() + "_" + time.getMinutes() + ".txt", texttosave);
+    })
+
+
+</script>
+</body>
+</html>
